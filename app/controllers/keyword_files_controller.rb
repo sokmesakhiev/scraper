@@ -17,7 +17,6 @@ class KeywordFilesController < ApplicationController
     if keyword_file.errors.empty?
       respond_to do |format|
         format.html { redirect_to keyword_files_path, notice: "Uploaded!" } # fallback
-        format.turbo_stream { render partial: "keyword_files/table", locals: { keyword_files: }, formats: [:html] }
       end
 
     else

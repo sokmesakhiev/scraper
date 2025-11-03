@@ -24,6 +24,13 @@
     </div>
   </div>
 </div>
-<turbo-frame id="keyword_files_table" class="block max-h-[600px] overflow-y-auto bg-gray-50 rounded-lg shadow">
-  <%= render "table", keyword_files: @keyword_files %>
+
+<turbo-frame id="keyword_files_table" data-turbo-action="replace" class="block max-h-[800px] overflow-y-auto bg-sky-900 rounded-lg shadow">
+  <% if @keyword_files.present? %>
+    <%= render "keyword_files/table", keyword_files: @keyword_files %>
+  <% else %>
+    <div class="px-6 py-4">
+      <p class="text-sm">No files uploaded ...</p>
+    </div>
+  <% end %>
 </turbo-frame>
