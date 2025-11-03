@@ -5,7 +5,7 @@
     </h2>
   </div>
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= form_with(scope: resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, class: "space-y-6") do |f| %>
       <div>
         <label for="email" class="block text-sm/6 font-medium text-gray-100">Email address</label>
         <div class="mt-2">
@@ -17,9 +17,14 @@
         </div>
       </div>
 
-      <div class="mt-10">
+      <div>
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Send me password reset instructions</button>
       </div>
     <% end %>
+
+    <p class="mt-10 text-center text-sm/6 text-gray-400">
+      Already a member?
+      <%= link_to "Sign in", new_user_session_path(), class: "font-semibold text-indigo-400 hover:text-indigo-300" %>
+    </p>
   </div>
 </div>
