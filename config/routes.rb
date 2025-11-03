@@ -14,4 +14,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  resources :keyword_files do
+    resources :keywords do
+      resources :keyword_results
+    end
+  end
 end
