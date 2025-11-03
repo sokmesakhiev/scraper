@@ -38,3 +38,6 @@
 
 # Ignor ctags
 /tags
+
+# Ignore macos temp files
+.DS_Store
