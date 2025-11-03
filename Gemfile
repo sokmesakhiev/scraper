@@ -28,7 +28,7 @@ gem "devise"
 gem "delayed_job_active_record"
 
 # Enumerize
-gem 'enumerize'
+gem "enumerize"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -60,32 +60,32 @@ group :development, :test do
   gem "brakeman", require: false
 
   # Rspec testing
-  gem 'rspec-rails'
+  gem "rspec-rails"
 
   # gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem 'benchmark-memory'
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'capybara'
-  gem 'capybara-screenshot'
-  gem 'database_cleaner-active_record'
-  gem 'pry'
-  gem 'pry-byebug'
-  gem 'pry-rails'
-  gem 'pry-remote'
-  gem 'rack-cors' # for running everything local with ngrok
-  gem 'rspec_junit_formatter', require: false
-  gem 'rubocop', require: false
-  gem 'rubocop-checkstyle_formatter', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem "benchmark-memory"
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "capybara"
+  gem "capybara-screenshot"
+  gem "database_cleaner-active_record"
+  gem "pry"
+  gem "pry-byebug"
+  gem "pry-rails"
+  gem "pry-remote"
+  gem "rack-cors" # for running everything local with ngrok
+  gem "rspec_junit_formatter", require: false
+  gem "rubocop", require: false
+  gem "rubocop-checkstyle_formatter", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'selenium-webdriver'
-  gem 'vcr'
-  gem 'webmock'
+  gem "selenium-webdriver"
+  gem "vcr"
+  gem "webmock"
 end
 
 group :development do
@@ -93,16 +93,16 @@ group :development do
   gem "spring"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'capistrano'
-  gem 'capistrano-bundler'
-  gem 'capistrano-passenger'
-  gem 'capistrano-rails'
-  gem 'capistrano-rails-console', require: false
-  gem 'capistrano-rails-tail-log'
-  gem 'capistrano-rake', require: false
-  gem 'capistrano-rvm'
-  gem 'letter_opener'
-  gem 'solargraph'
+  gem "capistrano"
+  gem "capistrano-bundler"
+  gem "capistrano-passenger"
+  gem "capistrano-rails"
+  gem "capistrano-rails-console", require: false
+  gem "capistrano-rails-tail-log"
+  gem "capistrano-rake", require: false
+  gem "capistrano-rvm"
+  gem "letter_opener"
+  gem "solargraph"
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
