@@ -1,6 +1,6 @@
 class KeywordFilesController < ApplicationController
   def index
-    @keyword_files = current_user.keyword_files
+    @keyword_files = keyword_files
     @keyword_files = @keyword_files.where('name like ?', "%#{params['query']}%") if params['query'].present?
   end
 
@@ -11,14 +11,33 @@ class KeywordFilesController < ApplicationController
   def create
     file = keyword_file_params[:file]
 
-    create_keyword_file = CreateKeywordFile.call(file:)
+    keyword_file = CreateKeywordFile.call(file:, user: current_user)
+    @keyword_files = current_user.keyword_files.order(created_at: :desc)
 
-    redirect_to root_path, notice: "Keywords uploaded! Processing started."
+    if keyword_file.errors.empty?
+      respond_to do |format|
+        format.html { redirect_to keyword_files_path, notice: "Uploaded!" } # fallback
+        format.turbo_stream { render partial: "keyword_files/table", locals: { keyword_files: }, formats: [:html] }
+      end
+
+    else
+      render :new, error: "Keywords upload failed."
+    end
+  end
+
+  def destroy
+    current_user.keyword_files.find(params[:id]).destroy!
+
+    redirect_to keyword_files_path, notice: "Deleted!"
   end
 
   private
 
   def keyword_file_params
     params.require(:keyword_file).permit(:file)
+  end
+
+  def keyword_files
+    current_user.keyword_files.order(created_at: :desc)
   end
 end
