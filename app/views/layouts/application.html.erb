@@ -22,9 +22,46 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-full bg-gray-900">
-    <main class="text-white">
-      <%= yield %>
+  <body class="h-full bg-sky-900 text-white items-center">
+    <% if current_user %>
+      <header class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <!-- Logo or Site Name -->
+            <div class="flex-shrink-0 text-xl font-semibold">
+              <%= link_to root_path do %>
+                <%= image_tag "scraper.png", alt: "Scraper", class: "h-16 w-auto" %>
+              <% end %>
+            </div>
+
+            <!-- Right side navigation -->
+            <div class="flex items-center space-x-4">
+              <!-- Profile button -->
+              <button
+                  class="text-gray-700 font-medium px-3 py-2 rounded-md transition"
+                  >
+                  Welcome <%= current_user.email %>
+              </button>
+
+              <%= link_to "Sign out",
+                destroy_user_session_path,
+                data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure you want to sign out?"
+                },
+                class: "font-semibold text-indigo-400 hover:text-indigo-300"
+              %>
+
+            </div>
+          </div>
+        </div>
+      </header>
+    <% end %>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white width-800">
+      <div class="p-10">
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>
