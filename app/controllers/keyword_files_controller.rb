@@ -1,7 +1,7 @@
 class KeywordFilesController < ApplicationController
   def index
     @keyword_files = current_user.keyword_files
-    @keyword_files = @keyword_files.where('name like ?', "%#{params['q']}%") if params['q'].present?
+    @keyword_files = @keyword_files.where('name like ?', "%#{params['query']}%") if params['query'].present?
   end
 
   def new
