@@ -8,7 +8,7 @@
 
     <h2 class="text-lg font-semibold text-gray-800 mb-4">Upload a New File</h2>
 
-    <%= form_with model: KeywordFile.new, url: keyword_files_path, multipart: true , data: { turbo_frame: "keyword_files_table" } do |form| %>
+    <%= form_with model: KeywordFile.new, url: keyword_files_path, multipart: true , data: { turbo_frame: "keyword_files_table" }, action: "turbo:submit-end->upload-modal#closeOnSuccess" do |form| %>
       <div class="space-y-4">
         <div>
           <%= form.label :file, "Select file", class: "block text-sm font-medium text-gray-700" %>

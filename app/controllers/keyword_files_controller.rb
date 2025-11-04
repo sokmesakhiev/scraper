@@ -24,6 +24,14 @@ class KeywordFilesController < ApplicationController
     end
   end
 
+  def download
+    keyword_file = current_user.keyword_files.find(params[:id])
+    csv_data = keyword_file.original_file.download
+    filename = csv_data.name
+
+    send_data csv_data, filename:, type: 'text/csv', disposition: 'attachment'
+  end
+
   def destroy
     current_user.keyword_files.find(params[:id]).destroy!
 
