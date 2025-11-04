@@ -53,21 +53,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_03_134240) do
     t.index ["user_id"], name: "index_keyword_files_on_user_id"
   end
 
-  create_table "keyword_results", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "html_code"
-    t.bigint "keyword_id", null: false
-    t.integer "total_ads"
-    t.integer "total_links"
-    t.datetime "updated_at", null: false
-    t.index ["keyword_id"], name: "index_keyword_results_on_keyword_id"
-  end
-
   create_table "keywords", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "keyword", null: false
+    t.text "html_code"
     t.bigint "keyword_file_id", null: false
     t.string "status"
+    t.string "term", null: false
+    t.integer "total_ads"
+    t.integer "total_link"
     t.datetime "updated_at", null: false
     t.index ["keyword_file_id"], name: "index_keywords_on_keyword_file_id"
   end
@@ -90,6 +83,5 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_03_134240) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "keyword_files", "users"
-  add_foreign_key "keyword_results", "keywords"
   add_foreign_key "keywords", "keyword_files"
 end

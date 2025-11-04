@@ -1,2 +1,0 @@
-class KeywordResultsController < ApplicationController
-end

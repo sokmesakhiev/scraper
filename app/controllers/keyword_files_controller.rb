@@ -25,9 +25,9 @@ class KeywordFilesController < ApplicationController
   end
 
   def download
-    keyword_file = current_user.keyword_files.find(params[:id])
+    keyword_file = current_user.keyword_files.find(params[:keyword_file_id])
     csv_data = keyword_file.original_file.download
-    filename = csv_data.name
+    filename = keyword_file.name
 
     send_data csv_data, filename:, type: 'text/csv', disposition: 'attachment'
   end
@@ -36,6 +36,12 @@ class KeywordFilesController < ApplicationController
     current_user.keyword_files.find(params[:id]).destroy!
 
     redirect_to keyword_files_path, notice: "Deleted!"
+  end
+
+  def show
+    @keyword_file = current_user.keyword_files.find(params[:id])
+    @keywords = @keyword_file.keywords
+    @keywords = @keywords.where('term like ?', "%#{params['query']}%") if params['query'].present?
   end
 
   private
