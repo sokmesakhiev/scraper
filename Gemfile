@@ -53,9 +53,6 @@ gem "thruster", require: false
 # Omniauth
 gem "omniauth-google-oauth2"
 
-# Pundit for ACL
-gem 'pundit'
-
 # --- Debugging Gems (Needed in both Development and Test) ---
 group :development, :test do
   # Standard Ruby debugger (replacement for debug, byebug)
@@ -69,7 +66,6 @@ group :development, :test do
 
   # The original byebug on specific platforms
   gem "byebug", platforms: %i[mri mingw x64_mingw]
-  gem 'pundit-matchers', '~> 1.7.0'
 end
 
 # --- Development and Static Analysis Gems ---

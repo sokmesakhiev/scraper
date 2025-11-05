@@ -4,10 +4,6 @@ class KeywordFilesController < ApplicationController
     @keyword_files = @keyword_files.where('name like ?', "%#{params['query']}%") if params['query'].present?
   end
 
-  def new
-    @keyword_file = KeywordFile.new
-  end
-
   def create
     file = keyword_file_params[:file]
 
@@ -18,7 +14,6 @@ class KeywordFilesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to keyword_files_path, notice: "Uploaded!" } # fallback
       end
-
     else
       render :new, error: "Keywords upload failed."
     end
@@ -40,7 +35,7 @@ class KeywordFilesController < ApplicationController
 
   def show
     @keyword_file = current_user.keyword_files.find(params[:id])
-    @keywords = @keyword_file.keywords
+    @keywords = @keyword_file.keywords.includes(:keyword_file).order(created_at: :desc)
     @keywords = @keywords.where('term like ?', "%#{params['query']}%") if params['query'].present?
   end
 

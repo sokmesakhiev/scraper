@@ -1,11 +1,10 @@
 <div class="flex items-center justify-between mb-6">
   <h1 class="text-2xl font-semibold text-gray-200">Keywords</h1>
-
   <div class="flex items-center">
-    <%= form_with url: keyword_file_keyword_path, method: :get, class: "relative w-full sm:w-auto pr-3" do |form| %>
+    <%= form_with url: keywords_path, method: :get, class: "relative w-full sm:w-auto pr-3" do |form| %>
       <%= form.text_field :query,
             value: params[:query],
-            placeholder: "Search files...",
+            placeholder: "Search keywords...",
             class: "block w-full sm:w-64 pl-3 pr-10 py-2 border border-gray-200 rounded-md shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" %>
       <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 pr-3">
         🔍
@@ -14,12 +13,10 @@
   </div>
 </div>
 
-<turbo-frame id="keyword_files_table" data-turbo-action="replace" class="block max-h-[800px] overflow-y-auto bg-sky-900 rounded-lg shadow">
-  <% if @keyword_files.present? %>
-    <%= render "keyword_files/table", keywords: @keywords %>
-  <% else %>
-    <div class="px-6 py-4">
-      <p class="text-sm">No files uploaded ...</p>
-    </div>
-  <% end %>
-</turbo-frame>
+<% if @keywords.present? %>
+  <%= render "keywords/table", keywords: @keywords %>
+<% else %>
+  <div class="px-6 py-4">
+    <p class="text-sm">No keywords ...</p>
+  </div>
+<% end %>

@@ -20,4 +20,5 @@ Rails.application.routes.draw do
 
     resources :keywords
   end
+  resources :keywords, only: [:index, :destroy]
 end
