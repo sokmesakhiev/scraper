@@ -11,10 +11,10 @@ class CreateKeywordFileService < BaseService
   private
 
   def create_keyword_file
-    keyword_file = KeywordFile.new(user:, name: file.original_filename)
+    keyword_file = KeywordFile.new(user:, name: filename)
     keyword_file.original_file.attach(
-      io: StringIO.open(content, "rb"),
-      filename: file.original_filename,
+      io: StringIO.open(csv_content, "rb"),
+      filename:,
       content_type: "text/csv",
       identify: false
     )
@@ -27,19 +27,19 @@ class CreateKeywordFileService < BaseService
     keyword_file.keywords.create!(terms.map { |term| { term:, status: "pending" } })
   end
 
-  def file
-    attributes.fetch(:file)
+  def csv_content
+    attributes.fetch(:csv_content)
   end
 
   def user
     attributes.fetch(:user)
   end
 
-  def content
-    @content ||= file.read.force_encoding("UTF-8")
+  def terms
+    @terms ||= csv_content.split(",").map(&:strip)
   end
 
-  def terms
-    @terms ||= content.split(",").map(&:strip)
+  def filename
+    @filename ||= attributes.fetch(:filename)
   end
 end

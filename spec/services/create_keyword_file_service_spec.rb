@@ -8,12 +8,12 @@ describe CreateKeywordFileService do
       allow(ScrapingKeywordsJob).to receive(:perform_later)
 
       user = create(:user)
-      # nimble,facebook,google
-      file = fixture_file_upload('spec/fixtures/files/keywords.csv', 'text/csv')
+      csv_content = 'nimble,facebook,google'
 
-      keyword_file = described_class.call(file:, user: user)
+      keyword_file = described_class.call(filename: 'keywords.csv', csv_content:, user: user)
 
       expect(keyword_file).to be_persisted
+      expect(keyword_file.name).to eq('keywords.csv')
       expect(keyword_file.errors).to be_empty
       expect(keyword_file.user).to eq(user)
       expect(keyword_file.keywords.size).to eq(3)
