@@ -27,6 +27,8 @@ gem "devise"
 # Delayed Job
 gem "delayed_job_active_record"
 
+gem "daemons"
+
 # Enumerize
 gem "enumerize"
 
@@ -53,46 +55,45 @@ gem "thruster", require: false
 # Omniauth
 gem "omniauth-google-oauth2"
 
+gem "httparty"
+
+# --- Debugging Gems (Needed in both Development and Test) ---
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
-
-  # Rspec testing
-  gem "rspec-rails"
-
+  # Standard Ruby debugger (replacement for debug, byebug)
   # gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem "benchmark-memory"
-  gem "byebug", platforms: %i[mri mingw x64_mingw]
-  gem "capybara"
-  gem "capybara-screenshot"
-  gem "database_cleaner-active_record"
+
+  # Pry/Byebug for advanced debugging (preferred over the standard debugger by some)
   gem "pry"
   gem "pry-byebug"
-  gem "pry-rails"
   gem "pry-remote"
-  gem "rack-cors" # for running everything local with ngrok
-  gem "rspec_junit_formatter", require: false
-  gem "rubocop", require: false
-  gem "rubocop-checkstyle_formatter", require: false
-  gem "rubocop-performance", require: false
-  gem "rubocop-rails", require: false
-  gem "rubocop-rspec", require: false
+  gem "pry-rails"
 
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem "rubocop-rails-omakase", require: false
-
-  gem "selenium-webdriver"
-  gem "vcr"
-  gem "webmock"
+  # The original byebug on specific platforms
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
 end
 
+# --- Development and Static Analysis Gems ---
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   gem "spring"
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # Console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
+
+  # Email interceptor for development
+  gem "letter_opener"
+
+  # Code analysis/styling tools
+  gem "rubocop", require: false
+  gem "rubocop-checkstyle_formatter", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rails-omakase", require: false
+
+  # Code intelligence
+  gem "solargraph"
+
+  # Deployment tools
   gem "capistrano"
   gem "capistrano-bundler"
   gem "capistrano-passenger"
@@ -101,9 +102,42 @@ group :development do
   gem "capistrano-rails-tail-log"
   gem "capistrano-rake", require: false
   gem "capistrano-rvm"
-  gem "letter_opener"
-  gem "solargraph"
 
-  # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
+  # Utility
+  gem "rack-cors" # for running everything local with ngrok
+end
+
+# --- Testing Gems (Only for `rails test` or `rspec` related tasks) ---
+group :test do
+  # RSpec testing framework
+  gem "rspec-rails"
+
+  # Factory for test data
+  gem "factory_bot_rails"
+  gem "faker"
+
+  # System/Feature testing
+  gem "capybara"
+  gem "selenium-webdriver"
+
+  # Tools for improving Capybara/System tests
+  gem "capybara-screenshot"
+  gem "database_cleaner-active_record"
+
+  # HTTP/API testing
+  gem "vcr"
+  gem "webmock"
+
+  # Performance and security testing
+  gem "benchmark-memory"
+  gem "brakeman", require: false
+
+  # RSpec/Testing-specific RuboCop
+  gem "rubocop-rspec", require: false
+
+  # Output formats
+  gem "rspec_junit_formatter", require: false
+
+  # Controller testing
+  gem "rails-controller-testing"
 end

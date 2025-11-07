@@ -139,6 +139,8 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.3.5)
+    daemons (1.4.1)
     database_cleaner-active_record (2.2.2)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0)
@@ -165,6 +167,13 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
+    factory_bot (6.5.6)
+      activesupport (>= 6.1.0)
+    factory_bot_rails (6.5.1)
+      factory_bot (~> 6.5)
+      railties (>= 6.1.0)
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
     faraday (2.14.0)
       faraday-net_http (>= 2.0, < 3.5)
       json
@@ -178,6 +187,10 @@ GEM
       activesupport (>= 6.1)
     hashdiff (1.2.1)
     hashie (5.0.0)
+    httparty (0.23.2)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.2.2)
@@ -359,6 +372,10 @@ GEM
       activesupport (= 8.1.1)
       bundler (>= 1.15.0)
       railties (= 8.1.1)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
@@ -588,10 +605,14 @@ DEPENDENCIES
   capistrano-rvm
   capybara
   capybara-screenshot
+  daemons
   database_cleaner-active_record
   delayed_job_active_record
   devise
   enumerize
+  factory_bot_rails
+  faker
+  httparty
   importmap-rails
   jbuilder
   kamal
@@ -606,6 +627,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rack-cors
   rails (~> 8.1.1)
+  rails-controller-testing
   rspec-rails
   rspec_junit_formatter
   rubocop

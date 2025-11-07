@@ -13,5 +13,13 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "keyword_files#index"
+
+  resources :keyword_files do
+    get "/download" => "keyword_files#download"
+
+    resources :keywords, only: [ :index, :destroy ]
+  end
+
+  resources :keywords, only: [ :index, :destroy ]
 end
