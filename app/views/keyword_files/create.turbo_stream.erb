@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "keyword_files_table" do %>
+  <%= render partial: "keyword_files/turbo_frame_table", locals: { keyword_files: @keyword_files } %>
+<% end %>
+
+<%= turbo_stream.replace "upload_errors" do %>
+  <%= render partial: "keyword_files/upload_errors", locals: { errors: [] } %>
+<% end %>

@@ -11,11 +11,4 @@ export default class extends Controller {
   close(event) {
     this.modalTarget.classList.add("hidden")
   }
-
-  closeOnSuccess(event) {
-    const { success } = event.detail; // Turbo provides success flag
-    if (success) {
-      this.close();
-    }
-  }
 }

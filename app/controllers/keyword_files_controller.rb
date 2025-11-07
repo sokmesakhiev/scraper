@@ -8,14 +8,19 @@ class KeywordFilesController < ApplicationController
     file = keyword_file_params[:file]
 
     unless file.content_type.in?(%w[text/csv application/csv])
-      redirect_to keyword_files_path, alert: "Invalid file type. Please upload a CSV file." and return
+      return render_upload_error("Invalid file type. Please upload a CSV file.")
     end
 
-    keyword_file = CreateKeywordFileService.call(file:, user: current_user)
+    if total_terms < 1 || total_terms > 100
+      return render_upload_error("Invalid file size. Please upload a file with 1-100 terms.")
+    end
+
+    keyword_file = CreateKeywordFileService.call(filename:, csv_content:, user: current_user)
     @keyword_files = current_user.keyword_files.order(created_at: :desc)
 
     if keyword_file.errors.empty?
       respond_to do |format|
+        format.turbo_stream
         format.html { redirect_to keyword_files_path, notice: "Uploaded!" }
       end
     else
@@ -26,9 +31,8 @@ class KeywordFilesController < ApplicationController
   def download
     keyword_file = current_user.keyword_files.find(params[:keyword_file_id])
     csv_data = keyword_file.original_file.download
-    filename = keyword_file.name
 
-    send_data csv_data, filename:, type: "text/csv", disposition: "attachment"
+    send_data csv_data, filename: keyword_file.name, type: "text/csv", disposition: "attachment"
   end
 
   def destroy
@@ -54,6 +58,27 @@ class KeywordFilesController < ApplicationController
   end
 
   def csv_content
-    keyword_file_params[:file].read
+    @csv_content ||= keyword_file_params[:file].read
+  end
+
+  def filename
+    @filename ||= keyword_file_params[:file].original_filename
+  end
+
+  def total_terms
+    @total_terms ||= csv_content.split(",").size
+  end
+
+  def render_upload_error(message)
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "upload_errors",
+          partial: "keyword_files/upload_errors",
+          locals: { errors: [ message ] }
+        )
+      end
+      format.html { redirect_to keyword_files_path, alert: message }
+    end
   end
 end

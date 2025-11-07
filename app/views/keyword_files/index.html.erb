@@ -32,6 +32,7 @@
       </button>
     <% end %>
     <div data-controller="upload-modal">
+      <turbo-frame id="modal_events"></turbo-frame>
       <%= render "upload_file" %>
 
       <button
@@ -45,12 +46,4 @@
   </div>
 </div>
 
-<turbo-frame id="keyword_files_table" data-turbo-action="replace" class="block max-h-[800px] overflow-y-auto bg-sky-900 rounded-lg shadow">
-  <% if @keyword_files.present? %>
-    <%= render "keyword_files/table", keyword_files: @keyword_files %>
-  <% else %>
-    <div class="px-6 py-4">
-      <p class="text-sm">No files uploaded ...</p>
-    </div>
-  <% end %>
-</turbo-frame>
+<%= render "keyword_files/turbo_frame_table", keyword_files: @keyword_files %>

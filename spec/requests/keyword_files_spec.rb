@@ -17,6 +17,50 @@ RSpec.describe "KeywordFiles", type: :request do
         sign_in user
       end
 
+      describe 'uploads a file' do
+        context "valid file" do
+          it "creates a keyword file" do
+            file = fixture_file_upload('spec/fixtures/files/keywords.csv', 'text/csv')
+
+            post keyword_files_path, params: { file: }
+
+            expect(assigns(:keyword_file)).to eq(user.keyword_files.last)
+          end
+        end
+
+        context 'not a csv file' do
+          it 'does not create a keyword file' do
+            file = fixture_file_upload('spec/fixtures/files/keywords.txt', 'text/plain')
+
+            post keyword_files_path, params: { file: }
+
+            expect(user.keyword_files.count).to eq(0)
+            expect(response.body).to include("Invalid file type")
+          end
+        end
+
+        context 'empty csv file' do
+          it 'does not create a keyword file' do
+            file = fixture_file_upload('spec/fixtures/files/oversized_keyword.csv', 'text/csv')
+
+            post keyword_files_path, params: { file: }
+
+            expect(user.keyword_files.count).to eq(0)
+            expect(response.body).to include("Invalid file size")
+          end
+        end
+
+        context 'oversized csv file' do
+          it 'does not create a keyword file' do
+            file = fixture_file_upload('spec/fixtures/files/empty.csv', 'text/csv')
+
+            post keyword_files_path, params: { file: }
+
+            expect(user.keyword_files.count).to eq(0)
+          end
+        end
+      end
+
       it "lists all uploaded files" do
         create_list(:keyword_file, 2, user: user)
 
