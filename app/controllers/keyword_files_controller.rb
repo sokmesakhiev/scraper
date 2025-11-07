@@ -7,7 +7,7 @@ class KeywordFilesController < ApplicationController
   def create
     file = keyword_file_params[:file]
 
-    keyword_file = CreateKeywordFile.call(file:, user: current_user)
+    keyword_file = CreateKeywordFileService.call(file:, user: current_user)
     @keyword_files = current_user.keyword_files.order(created_at: :desc)
 
     if keyword_file.errors.empty?

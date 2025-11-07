@@ -31,7 +31,7 @@ RSpec.describe "KeywordFiles", type: :request do
 
         get keyword_files_path(query: 'foo')
 
-        expect(assigns(:keyword_files)).to eq([keyword_file])
+        expect(assigns(:keyword_files)).to eq([ keyword_file ])
       end
 
       it "downloads a file" do

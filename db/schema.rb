@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_03_134240) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_07_053345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,22 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_03_134240) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "attempts", default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "failed_at"
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "locked_at"
+    t.string "locked_by"
+    t.boolean "permanently_failed", default: false
+    t.integer "priority", default: 0, null: false
+    t.string "queue"
+    t.datetime "run_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "keyword_files", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -63,6 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_03_134240) do
     t.integer "total_link"
     t.datetime "updated_at", null: false
     t.index ["keyword_file_id"], name: "index_keywords_on_keyword_file_id"
+    t.index ["term"], name: "index_keywords_on_term"
   end
 
   create_table "users", force: :cascade do |t|

@@ -27,6 +27,8 @@ gem "devise"
 # Delayed Job
 gem "delayed_job_active_record"
 
+gem 'daemons'
+
 # Enumerize
 gem "enumerize"
 
@@ -52,6 +54,8 @@ gem "thruster", require: false
 
 # Omniauth
 gem "omniauth-google-oauth2"
+
+gem 'httparty'
 
 # --- Debugging Gems (Needed in both Development and Test) ---
 group :development, :test do

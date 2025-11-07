@@ -1,14 +1,15 @@
-example_id                                         | status  | run_time        |
--------------------------------------------------- | ------- | --------------- |
-./spec/helpers/application_helper_spec.rb[1:1]     | passed  | 0.01506 seconds |
-./spec/models/user_spec.rb[1:1]                    | pending | 0.00001 seconds |
-./spec/requests/keyword_files_spec.rb[1:1:1:1]     | passed  | 0.21934 seconds |
-./spec/requests/keyword_files_spec.rb[1:1:2:1]     | passed  | 0.15765 seconds |
-./spec/requests/keyword_files_spec.rb[1:1:2:2]     | passed  | 0.11014 seconds |
-./spec/requests/keyword_files_spec.rb[1:1:2:3]     | passed  | 0.04267 seconds |
-./spec/requests/keyword_files_spec.rb[1:1:2:4]     | passed  | 0.03695 seconds |
-./spec/requests/keyword_files_spec.rb[1:1:2:5]     | passed  | 0.04496 seconds |
-./spec/requests/keywords_spec.rb[1:1:1:1]          | passed  | 0.00806 seconds |
-./spec/requests/keywords_spec.rb[1:1:2:1]          | passed  | 0.04661 seconds |
-./spec/requests/keywords_spec.rb[1:1:2:2]          | passed  | 0.03142 seconds |
-./spec/services/create_keyword_file_spec.rb[1:1:1] | passed  | 0.02746 seconds |
+example_id                                                 | status  | run_time        |
+---------------------------------------------------------- | ------- | --------------- |
+./spec/helpers/application_helper_spec.rb[1:1]             | passed  | 0.02389 seconds |
+./spec/models/user_spec.rb[1:1]                            | pending | 0.00001 seconds |
+./spec/requests/keyword_files_spec.rb[1:1:1:1]             | passed  | 0.20314 seconds |
+./spec/requests/keyword_files_spec.rb[1:1:2:1]             | passed  | 0.1509 seconds  |
+./spec/requests/keyword_files_spec.rb[1:1:2:2]             | passed  | 0.11406 seconds |
+./spec/requests/keyword_files_spec.rb[1:1:2:3]             | passed  | 0.0428 seconds  |
+./spec/requests/keyword_files_spec.rb[1:1:2:4]             | passed  | 0.04574 seconds |
+./spec/requests/keyword_files_spec.rb[1:1:2:5]             | passed  | 0.04289 seconds |
+./spec/requests/keywords_spec.rb[1:1:1:1]                  | passed  | 0.00872 seconds |
+./spec/requests/keywords_spec.rb[1:1:2:1]                  | passed  | 0.0491 seconds  |
+./spec/requests/keywords_spec.rb[1:1:2:2]                  | passed  | 0.03061 seconds |
+./spec/services/create_keyword_file_service_spec.rb[1:1:1] | passed  | 0.04057 seconds |
+./spec/services/scrapers/bing/scraper_spec.rb[1:1:1]       | passed  | 0.0333 seconds  |
