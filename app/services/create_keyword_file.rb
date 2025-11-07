@@ -9,6 +9,8 @@ class CreateKeywordFile < BaseService
     )
     keyword_file.save!
 
+    # ScrapeKeywordsJob.perform_later(keyword_file)
+
     keyword_file
   end
 

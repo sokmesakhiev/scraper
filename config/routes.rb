@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   resources :keyword_files do
     get '/download' => 'keyword_files#download'
 
-    resources :keywords
+    resources :keywords, only: [:index, :destroy]
   end
+
   resources :keywords, only: [:index, :destroy]
 end

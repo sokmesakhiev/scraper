@@ -17,6 +17,6 @@ class KeywordsController < ApplicationController
   private
 
   def keyword_file
-    @keyword_file ||= current_user.keyword_files.find(params[:keyword_file_id])
+    @keyword_file ||= current_user.keyword_files.find_by(id: params[:keyword_file_id])
   end
 end

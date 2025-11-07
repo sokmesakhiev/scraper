@@ -13,7 +13,6 @@
 # it.
 
 require 'factory_bot_rails'
-require 'pundit/matchers'
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

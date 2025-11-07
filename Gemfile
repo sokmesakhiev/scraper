@@ -133,4 +133,7 @@ group :test do
 
   # Output formats
   gem "rspec_junit_formatter", require: false
+
+  # Controller testing
+  gem 'rails-controller-testing'
 end

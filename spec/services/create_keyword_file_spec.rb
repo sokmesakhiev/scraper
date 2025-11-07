@@ -8,7 +8,7 @@ describe CreateKeywordFile do
       user = create(:user)
       file = fixture_file_upload('spec/fixtures/files/keywords.csv', 'text/csv')
 
-      keyword_file = CreateKeywordFile.call(file:, user: user)
+      keyword_file = described_class.call(file:, user: user)
 
       expect(keyword_file).to be_persisted
       expect(keyword_file.errors).to be_empty
