@@ -17,7 +17,7 @@ module Scrapers
         {
           html_code: html_response.body,
           total_ads: estimate_ads(doc),
-          total_link: doc.css('a').count
+          total_link: doc.css("a").count
         }
       end
 
@@ -27,10 +27,10 @@ module Scrapers
           '[class*="ad"]',
           '[class*="Ad"]',
           '[id*="ad"]',
-          '[data-ad]',
+          "[data-ad]",
           '[aria-label*="ads"]',
           '[aria-label*="Ad"]',
-          'div.b_ad'   # bing sometimes uses b_ad
+          "div.b_ad"   # bing sometimes uses b_ad
         ]
 
         # Combine counts but avoid counting too loosely; filter by visible anchors inside those containers
@@ -40,12 +40,12 @@ module Scrapers
         ad_like = ad_containers.select do |node|
           text = node.text.to_s
           # contains typical ad signals
-          (text =~ /\bAd(s)?\b/i) || node.css('a').any? { |a| a[:href].present? }
+          (text =~ /\bAd(s)?\b/i) || node.css("a").any? { |a| a[:href].present? }
         end
 
         # Count distinct advertisers: we can count distinct domains from anchor hrefs inside ad_like containers
         domains = ad_like.flat_map do |node|
-          node.css('a').map { |a| a[:href] }.compact
+          node.css("a").map { |a| a[:href] }.compact
         end.map do |href|
           begin
             uri = URI.parse(href)
@@ -59,7 +59,7 @@ module Scrapers
         sponsored_labels = doc.xpath("//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'sponsored') or contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), 'ad')]")
         if domains.empty? && sponsored_labels.any?
           # rough fallback: count sponsored elements
-          return [sponsored_labels.count, 1].max
+          return [ sponsored_labels.count, 1 ].max
         end
 
         domains.count

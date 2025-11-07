@@ -13,9 +13,9 @@ class CreateKeywordFileService < BaseService
   def create_keyword_file
     keyword_file = KeywordFile.new(user:, name: file.original_filename)
     keyword_file.original_file.attach(
-      io: StringIO.open(content, 'rb'),
+      io: StringIO.open(content, "rb"),
       filename: file.original_filename,
-      content_type: 'text/csv',
+      content_type: "text/csv",
       identify: false
     )
     keyword_file.save!
@@ -24,7 +24,7 @@ class CreateKeywordFileService < BaseService
   end
 
   def create_keyword(keyword_file)
-    keyword_file.keywords.create!(terms.map { |term| { term:, status: 'pending' } })
+    keyword_file.keywords.create!(terms.map { |term| { term:, status: "pending" } })
   end
 
   def file
@@ -36,10 +36,10 @@ class CreateKeywordFileService < BaseService
   end
 
   def content
-    @content ||= file.read.force_encoding('UTF-8')
+    @content ||= file.read.force_encoding("UTF-8")
   end
 
   def terms
-    @terms ||= content.split(',').map(&:strip)
+    @terms ||= content.split(",").map(&:strip)
   end
 end

@@ -16,10 +16,10 @@ Rails.application.routes.draw do
   root "keyword_files#index"
 
   resources :keyword_files do
-    get '/download' => 'keyword_files#download'
+    get "/download" => "keyword_files#download"
 
-    resources :keywords, only: [:index, :destroy]
+    resources :keywords, only: [ :index, :destroy ]
   end
 
-  resources :keywords, only: [:index, :destroy]
+  resources :keywords, only: [ :index, :destroy ]
 end

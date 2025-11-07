@@ -17,7 +17,7 @@ describe CreateKeywordFileService do
       expect(keyword_file.errors).to be_empty
       expect(keyword_file.user).to eq(user)
       expect(keyword_file.keywords.size).to eq(3)
-      expect(ScrapingKeywordsJob).to have_received(:perform_later).with(keyword_file_id: keyword_file.id, terms: ['nimble', 'facebook', 'google'])
+      expect(ScrapingKeywordsJob).to have_received(:perform_later).with(keyword_file_id: keyword_file.id, terms: [ 'nimble', 'facebook', 'google' ])
     end
   end
 end

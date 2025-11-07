@@ -26,5 +26,4 @@ class ApplicationJob < ActiveJob::Base
   #   # For queued_duration, if the attempts = 0, updated_at is same as created_at, for attempts != 0, i.e job failed, the updated_at field will be the time the job failed
   #   Rails.logger.info "Before perform job #{self.class} with params: #{params} attempts: #{job.attempts + 1} queued_duration: #{job.locked_at - job.updated_at} pid: #{Process.pid} memory: #{memory_consumption} job_id: #{job.id}"
   # end
-
 end

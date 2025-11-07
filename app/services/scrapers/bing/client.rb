@@ -3,6 +3,8 @@ module Scrapers
     class Client
       BING_URL = "https://www.bing.com/search"
       TIME_OUT = 15
+      MAX_RETRY = 3
+      WAIT_TIME = 1
 
       def scrap(term:)
         url = generate_url(term)
@@ -18,7 +20,23 @@ module Scrapers
       private
 
       def request(url)
-        HTTParty.get(url, headers: default_headers, timeout: TIME_OUT)
+        retried = 0
+
+        begin
+          Rails.logger.error("Connecting to Bing for scraping data with url: #{url}")
+          HTTParty.get(url, headers: default_headers, timeout: TIME_OUT)
+        rescue StandardError => e
+          retried += 1
+          if retried < MAX_RETRY
+            sleep(WAIT_TIME * retried)
+
+            retry
+          else
+            Rails.logger.error("Connecting to Bing failed after #{MAX_RETRY} attempts: #{e.message} with the url: #{url}")
+
+            nil
+          end
+        end
       end
 
       def generate_url(term)

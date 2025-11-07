@@ -27,7 +27,7 @@ gem "devise"
 # Delayed Job
 gem "delayed_job_active_record"
 
-gem 'daemons'
+gem "daemons"
 
 # Enumerize
 gem "enumerize"
@@ -55,7 +55,7 @@ gem "thruster", require: false
 # Omniauth
 gem "omniauth-google-oauth2"
 
-gem 'httparty'
+gem "httparty"
 
 # --- Debugging Gems (Needed in both Development and Test) ---
 group :development, :test do
@@ -113,8 +113,8 @@ group :test do
   gem "rspec-rails"
 
   # Factory for test data
-  gem 'factory_bot_rails'
-  gem 'faker'
+  gem "factory_bot_rails"
+  gem "faker"
 
   # System/Feature testing
   gem "capybara"
@@ -139,5 +139,5 @@ group :test do
   gem "rspec_junit_formatter", require: false
 
   # Controller testing
-  gem 'rails-controller-testing'
+  gem "rails-controller-testing"
 end

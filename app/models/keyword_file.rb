@@ -5,5 +5,5 @@ class KeywordFile < ApplicationRecord
   has_many :keywords, dependent: :destroy
   has_one_attached :original_file
 
-  enumerize :status, in: ['failed', 'pending', 'processing', 'complete'], default: :pending
+  enumerize :status, in: [ "failed", "pending", "processing", "complete" ], default: :pending
 end

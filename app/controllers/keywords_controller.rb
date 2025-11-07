@@ -1,7 +1,7 @@
 class KeywordsController < ApplicationController
   def index
     @keywords = current_user.keywords.includes(:keyword_file).order(created_at: :desc)
-    @keywords = @keywords.where('term like ?', "%#{params['query']}%") if params['query'].present?
+    @keywords = @keywords.where("term like ?", "%#{params['query']}%") if params["query"].present?
   end
 
   def destroy

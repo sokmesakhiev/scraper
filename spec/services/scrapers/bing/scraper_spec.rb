@@ -10,7 +10,7 @@ RSpec.describe Scrapers::Bing::Scraper do
       response = scraper.process
 
       expect(response[:total_ads]).to eq(8)
-      expect(response[:total_links]).to eq(7)
+      expect(response[:total_link]).to eq(7)
       expect(response[:html_code]).to be_present
     end
   end
