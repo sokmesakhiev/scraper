@@ -35,8 +35,9 @@ test:
 production:
   <<: *default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: bing-scraper
-  username: <%= ENV['POSTGRES_USER'] %>
+  host: localhost
+  database: scraper
+  username: postgres
   password: <%= ENV['POSTGRES_PASSWORD'] %>
   schema_search_path: public
   timeout: 1500
