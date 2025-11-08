@@ -3,6 +3,7 @@ require 'spec_helper'
 require 'vcr'
 require 'factory_bot_rails'
 require 'will_paginate'
+require 'capybara/rspec'
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
@@ -25,6 +26,29 @@ require 'rspec/rails'
 # require only the support files necessary.
 #
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+
+# driver : selenium_chrome | selenium_chrome_headless
+Capybara.default_driver = 'selenium_chrome_headless'.to_sym
+Capybara::Screenshot.autosave_on_failure = true
+
+# Optional: Set the default wait time for Capybara actions
+Capybara.default_max_wait_time = 10
+
+# Set screenshot size
+Capybara::Screenshot.webkit_options = { width: 1920, height: 1080 }
+# Optional: Configure Capybara to use a specific browser
+Capybara.register_driver :selenium do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_extension(Rails.root.join('spec', 'chrome_extensions', 'react-dev-tools.crx'))
+  options.add_extension(Rails.root.join('spec', 'chrome_extensions', 'redux-dev-tools.crx'))
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
+end
+# Host could be specified in the config, by default running on localhost
+Capybara.server = :puma, { Silent: true }
+Capybara.server_host = "0.0.0.0"
+Capybara.server_port = 3001
+Capybara.app_host = "http://localhost:3001"
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -65,4 +89,9 @@ RSpec.configure do |config|
   #
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.before(:suite) do
+    if Rails.env.test?
+      ActiveJob::Base.queue_adapter = :inline
+    end
+  end
 end
