@@ -1,30 +1,91 @@
 # frozen_string_literal: true
 
-# config valid for current version and patch releases of Capistrano
+# ================================
+# Capistrano configuration
+# ================================
 lock "~> 3.19.2"
 
 set :application, "scraper"
-set :repo_url, "ssh://git@github.com:sokmesakhiev/scraper.git"
+set :repo_url, "git@github.com:sokmesakhiev/scraper.git"
 
-set :stages, %w[production]
-
+# ================================
+# Deployment settings
+# ================================
+set :deploy_to, "/var/www/rails_app"
 set :deploy_via, :remote_cache
-# set :scm, 'git'
+set :keep_releases, 5
 
+# ================================
+# Output / Logging
+# ================================
 set :format, :airbrussh
-set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
+set :format_options,
+    command_output: true,
+    log_file: "log/capistrano.log",
+    color: :auto,
+    truncate: :auto
 
 set :pty, true
 
+# ================================
+# Ruby environment
+# ================================
+set :rbenv_type, :user
+set :rbenv_ruby, "3.3.0" # adjust to your version
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w[rake gem bundle ruby rails]
+
+# ================================
+# Shared directories and files
+# ================================
+append :linked_dirs,
+       "log",
+       "tmp/pids",
+       "tmp/cache",
+       "tmp/sockets",
+       "tmp/files",
+       "public/system",
+       "public/images/production",
+       "public/images",
+       "public/javascripts",
+       "public/stylesheets"
+
+append :linked_files, "config/master.key"
+
+# ================================
+# Passenger setup
+# ================================
 set :passenger_restart_with_touch, true
 
-# Configuration files that must be present in the shared directory
-# set :linked_files, fetch(:linked_files, []).concat(%w[config/database.yml config/secrets.yml .env])
+# ================================
+# Custom tasks
+# ================================
+namespace :deploy do
+  desc "Upload Rails credentials production key"
+  task :upload_credentials_key do
+    on roles(:app) do
+      shared_key_path = "#{shared_path}/production.key"
+      release_key_path = "#{release_path}/config/credentials/production.key"
 
-# append :linked_files, 'config/application.yml'
-append :linked_dirs, "log", "tmp/git_cli", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/files", "public/system", "public/images/production", "public/images", "public/javascripts", "public/stylesheets"
+      # Ensure destination directory exists
+      execute :mkdir, "-p", "#{release_path}/config/credentials"
 
-set :keep_releases, 5
-set :rvm_type, :user
+      # Copy key into release path
+      execute :cp, shared_key_path, release_key_path
 
-# after 'deploy:publishing', 'queues:restart'
+      # Secure permissions
+      execute :chmod, "600", release_key_path
+    end
+  end
+
+  desc "Restart application (Passenger)"
+  task :restart do
+    on roles(:app) do
+      execute :touch, release_path.join("tmp/restart.txt")
+    end
+  end
+
+  # Hooks
+  before "deploy:assets:precompile", "deploy:upload_credentials_key"
+  after :publishing, :restart
+end
