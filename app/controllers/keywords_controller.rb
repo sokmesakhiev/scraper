@@ -1,6 +1,6 @@
 class KeywordsController < ApplicationController
   def index
-    @keywords = current_user.keywords.includes(:keyword_file).order(created_at: :desc)
+    @keywords = current_user.keywords.includes(:keyword_file).order(created_at: :desc).paginate(page: params[:page], per_page: 20)
     @keywords = @keywords.where("term like ?", "%#{params['query']}%") if params["query"].present?
   end
 
