@@ -54,7 +54,7 @@ class KeywordFilesController < ApplicationController
   end
 
   def keyword_files
-    current_user.keyword_files.order(created_at: :desc)
+    current_user.keyword_files.order(created_at: :desc).paginate(page: params[:page], per_page: 20)
   end
 
   def csv_content

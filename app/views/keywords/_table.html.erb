@@ -100,6 +100,7 @@
       <% end %>
     </tbody>
   </table>
+  <%= will_paginate keywords, renderer: TailwindPaginationRenderer %>
   <!-- Modal -->
   <div
     x-show="openModal"
