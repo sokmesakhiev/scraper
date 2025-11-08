@@ -1,0 +1,120 @@
+<div class="bg-white shadow-sm overflow-hidden rounded-md" x-data="{ openModal: false, modalHtml: '' }">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+      <tr>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Term</th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">File</th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">total ads</th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">total link</th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">html</th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">Created at</th>
+        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody class="bg-white divide-y divide-gray-200">
+      <% keywords.each do |keyword| %>
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center gap-3">
+              <div class="text-sm text-gray-900 font-medium">
+                <%= keyword.term %>
+              </div>
+            </div>
+          </td>
+          <td class="py-4 whitespace-nowrap">
+            <div class="flex items-center gap-3">
+              <div class="text-sm text-gray-900 font-medium underline">
+                <%= link_to keyword_file_path(keyword.keyword_file), data: { turbo: false }, class: "px-3 py-1 rounded-md text-sm" do %>
+                  <%= keyword.keyword_file.name %>
+                <% end %>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-6 py-4 whitespace-nowrap">
+            <%# status badges: processing, completed, failed %>
+            <% case keyword.status %>
+            <% when "processing" %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Processing</span>
+            <% when "complete" %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
+            <% when "failed" %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Failed</span>
+            <% else %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700"><%= keyword.status || "Pending" %></span>
+            <% end %>
+          </td>
+
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center gap-3">
+              <div class="text-sm text-gray-900 font-medium">
+                <%= keyword.total_ads %>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center gap-3">
+              <div class="text-sm text-gray-900 font-medium">
+                <%= keyword.total_link %>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center gap-3">
+              <div class="text-sm text-gray-900 font-medium underline">
+                <% if keyword.html_code.present? %>
+                  <button
+                    @click="openModal = true; modalHtml = `<%= j keyword.html_code %>`"
+                    class="p-2 text-indigo-300 hover:text-indigo-400 transition cursor-pointer"
+                    title="View HTML"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7v10a2 2 0 002 2h6a2 2 0 002-2V9l-4-4H9a2 2 0 00-2 2z" />
+                    </svg>
+                  </button>
+                <% else %>
+                  <span class="text-gray-400">—</span>
+                <% end %>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden lg:table-cell">
+            <%= l(keyword.created_at, format: :short) %>
+          </td>
+
+          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <div class="inline-flex items-center gap-2">
+              <%= link_to keyword_path(keyword),
+                data: { turbo_method: :delete, turbo_confirm: "Delete #{keyword.term}? This action cannot be undone." },
+                class: "px-3 py-1 rounded-md text-sm bg-rose-50 text-rose-700 hover:bg-rose-100" do %>
+                Delete
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate keywords, renderer: TailwindPaginationRenderer %>
+  <!-- Modal -->
+  <div
+    x-show="openModal"
+    x-transition
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+  >
+    <div class="bg-white rounded-xl shadow-xl max-w-5xl w-full mx-4 overflow-hidden">
+      <div class="flex justify-between items-center px-4 py-2 bg-gray-100 border-b">
+        <h2 class="text-lg font-semibold text-gray-700">HTML Code</h2>
+        <button @click="openModal = false" class="text-gray-500 hover:text-gray-700">✕</button>
+      </div>
+      <div class="p-4 bg-gray-900 text-green-300 font-mono text-xs overflow-auto max-h-[75vh]">
+        <pre x-text="modalHtml"></pre>
+      </div>
+    </div>
+  </div>
+</div>

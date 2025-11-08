@@ -4,8 +4,10 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", ">= 2.1"
+
+# Pogrest database
+gem "pg"
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -18,6 +20,19 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+# Authentication
+gem "devise"
+
+# Delayed Job
+gem "delayed_job_active_record"
+
+gem "daemons"
+
+# Enumerize
+gem "enumerize"
+
+gem "will_paginate"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -39,21 +54,92 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+# Omniauth
+gem "omniauth-google-oauth2"
 
+gem "httparty"
+
+# --- Debugging Gems (Needed in both Development and Test) ---
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  # Standard Ruby debugger (replacement for debug, byebug)
+  # gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
+  # Pry/Byebug for advanced debugging (preferred over the standard debugger by some)
+  gem "pry"
+  gem "pry-byebug"
+  gem "pry-remote"
+  gem "pry-rails"
 
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem "rubocop-rails-omakase", require: false
+  # The original byebug on specific platforms
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
 end
 
+# --- Development and Static Analysis Gems ---
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
+  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
+  gem "spring"
+
+  # Console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Email interceptor for development
+  gem "letter_opener"
+
+  # Code analysis/styling tools
+  gem "rubocop", require: false
+  gem "rubocop-checkstyle_formatter", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rails-omakase", require: false
+
+  # Code intelligence
+  gem "solargraph"
+
+  # Deployment tools
+  gem "capistrano"
+  gem "capistrano-bundler"
+  gem "capistrano-passenger"
+  gem "capistrano-rails"
+  gem "capistrano-rails-console", require: false
+  gem "capistrano-rails-tail-log"
+  gem "capistrano-rake", require: false
+  gem "capistrano-rbenv"
+
+  # Utility
+  gem "rack-cors" # for running everything local with ngrok
+end
+
+# --- Testing Gems (Only for `rails test` or `rspec` related tasks) ---
+group :test do
+  # RSpec testing framework
+  gem "rspec-rails"
+
+  # Factory for test data
+  gem "factory_bot_rails"
+  gem "faker"
+
+  # System/Feature testing
+  gem "capybara"
+  gem "selenium-webdriver"
+
+  # Tools for improving Capybara/System tests
+  gem "capybara-screenshot"
+  gem "database_cleaner-active_record"
+
+  # HTTP/API testing
+  gem "vcr"
+  gem "webmock"
+
+  # Performance and security testing
+  gem "benchmark-memory"
+  gem "brakeman", require: false
+
+  # RSpec/Testing-specific RuboCop
+  gem "rubocop-rspec", require: false
+
+  # Output formats
+  gem "rspec_junit_formatter", require: false
+
+  # Controller testing
+  gem "rails-controller-testing"
 end
