@@ -35,9 +35,9 @@ test:
 production:
   <<: *default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: localhost
+  host: <%= Rails.application.credentials.dig(:postgres_host) %>
   database: scraper
   username: postgres
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  password: <%= Rails.application.credentials.dig(:postgres_password) %>
   schema_search_path: public
   timeout: 1500
