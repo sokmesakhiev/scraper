@@ -9,6 +9,7 @@
 
 
 server "13.212.242.32", user: "ubuntu", roles: %w[app db web dj]
+set :branch, "main" # ensure it uses your main branch
 
 # role-based syntax
 # ==================

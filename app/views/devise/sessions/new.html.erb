@@ -5,6 +5,17 @@
     </h2>
   </div>
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <% if flash.present? %>
+      <div class="mb-2 p-2 bg-white border border-red-300 text-red-800 rounded">
+        <ul>
+          <% flash.each do |key, message| %>
+            <div class="alert alert-<%= key == 'alert' ? 'danger' : 'success' %>">
+              <%= message %>
+            </div>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <%= form_with(scope: :user, url: session_path(:user), class: "space-y-6") do |f| %>
       <div>
         <label for="email" class="block text-sm/6 font-medium text-gray-100">Email address</label>

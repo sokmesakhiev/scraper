@@ -57,6 +57,10 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
+      chrome:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
       postgres:
         image: postgres:15
         ports: ['5432:5432']
@@ -86,8 +90,10 @@ jobs:
       - name: Set up database
         run: |
           sudo apt-get install -y libpq-dev
-          bundle exec rails db:create db:schema:load
+          bundle exec rails db:create db:schema:load db:seed
 
       - name: Run RSpec tests
+        env:
+          SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
         run: |
           bundle exec rspec

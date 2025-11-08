@@ -31,7 +31,7 @@ set :pty, true
 # Ruby environment
 # ================================
 set :rbenv_type, :user
-set :rbenv_ruby, "3.3.0" # adjust to your version
+set :rbenv_ruby, "3.4.5" # adjust to your version
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w[rake gem bundle ruby rails]
 
@@ -49,8 +49,6 @@ append :linked_dirs,
        "public/images",
        "public/javascripts",
        "public/stylesheets"
-
-append :linked_files, "config/master.key"
 
 # ================================
 # Passenger setup
