@@ -103,7 +103,7 @@ group :development do
   gem "capistrano-rails-console", require: false
   gem "capistrano-rails-tail-log"
   gem "capistrano-rake", require: false
-  gem "capistrano-rvm"
+  gem "capistrano-rbenv"
 
   # Utility
   gem "rack-cors" # for running everything local with ngrok
