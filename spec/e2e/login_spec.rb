@@ -6,7 +6,7 @@ require_relative 'e2e_helper'
 describe 'User authentication', type: :feature do
   let(:email) { 'ksokmesa@gmail.com' }
   let(:password) { '123456' }
-  let!(:user) { User.create(email:, password:, password_confirmation: password) }
+  let!(:user) { create(:user, email:, password:, password_confirmation: password) }
 
   context 'incorrect credentials' do
     it 'does not log in' do

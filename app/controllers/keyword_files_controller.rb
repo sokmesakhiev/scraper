@@ -16,7 +16,7 @@ class KeywordFilesController < ApplicationController
     end
 
     keyword_file = CreateKeywordFileService.call(filename:, csv_content:, user: current_user)
-    @keyword_files = current_user.keyword_files.order(created_at: :desc)
+    @keyword_files = current_user.keyword_files.order(created_at: :desc).paginate(page: params[:page], per_page: 20)
 
     if keyword_file.errors.empty?
       respond_to do |format|
@@ -43,7 +43,7 @@ class KeywordFilesController < ApplicationController
 
   def show
     @keyword_file = current_user.keyword_files.find(params[:id])
-    @keywords = @keyword_file.keywords.includes(:keyword_file).order(created_at: :desc)
+    @keywords = @keyword_file.keywords.includes(:keyword_file).order(created_at: :desc).paginate(page: params[:page], per_page: 20)
     @keywords = @keywords.where("term like ?", "%#{params['query']}%") if params["query"].present?
   end
 
