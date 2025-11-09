@@ -7,7 +7,11 @@ image: mesasok/scraper
 # Deploy to these servers.
 servers:
   web:
-    - 18.141.166.16
+    - dev.vicks-infinite.com
+  worker:
+    hosts:
+      - dev.vicks-infinite.com
+    cmd: bin/delayed_job run
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -19,7 +23,7 @@ servers:
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: 18.141.166.16
+  host: dev.vicks-infinite.com
 
 # Credentials for your image host.
 registry:
@@ -40,6 +44,7 @@ env:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
     SOLID_QUEUE_IN_PUMA: true
+    RAILS_ENV: production
 
     # Set number of processes dedicated to Solid Queue (default: 1)
     # JOB_CONCURRENCY: 3
@@ -84,9 +89,9 @@ builder:
   # # Pass arguments and secrets to the Docker build process
   # args:
   #   RUBY_VERSION: 3.4.5
-  # secrets:
+  secrets:
+    - RAILS_MASTER_KEY
   #   - GITHUB_TOKEN
-  #   - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
 ssh:
