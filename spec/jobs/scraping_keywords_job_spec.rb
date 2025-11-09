@@ -13,6 +13,7 @@ RSpec.describe ScrapingKeywordsJob, type: :job, vcr: { cassette_name: 'bing_scra
       expect(keyword.reload.total_ads).to eq(8)
       expect(keyword.total_link).to eq(7)
       expect(keyword.html_code).to be_present
+      expect(keyword_file.reload.status).to eq("complete")
     end
   end
 end

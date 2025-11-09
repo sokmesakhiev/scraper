@@ -11,7 +11,7 @@ example_id                                                 | status  | run_time 
 ./spec/e2e/login_spec.rb[1:2:1]                            | passed  | 0.24221 seconds |
 ./spec/e2e/login_spec.rb[1:3:1]                            | passed  | 0.30248 seconds |
 ./spec/helpers/application_helper_spec.rb[1:1]             | passed  | 0.01105 seconds |
-./spec/jobs/scraping_keywords_job_spec.rb[1:1:1]           | passed  | 0.07503 seconds |
+./spec/jobs/scraping_keywords_job_spec.rb[1:1:1]           | passed  | 0.24779 seconds |
 ./spec/models/user_spec.rb[1:1]                            | pending | 0.00001 seconds |
 ./spec/requests/keyword_files_spec.rb[1:1:1:1]             | passed  | 0.01022 seconds |
 ./spec/requests/keyword_files_spec.rb[1:1:2:1:1:1]         | passed  | 0.19224 seconds |
