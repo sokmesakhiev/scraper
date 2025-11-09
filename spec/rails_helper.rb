@@ -28,6 +28,7 @@ require 'rspec/rails'
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # driver : selenium_chrome | selenium_chrome_headless
+# use selenium_chrome_headless to run tests in github CI
 Capybara.default_driver = 'selenium_chrome_headless'.to_sym
 Capybara::Screenshot.autosave_on_failure = true
 
@@ -91,6 +92,9 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.before(:suite) do
     if Rails.env.test?
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+
       ActiveJob::Base.queue_adapter = :inline
     end
   end
