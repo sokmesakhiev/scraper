@@ -102,12 +102,27 @@ KeywordFile 1---N Keyword
 
 ---
 
-## 🧩 Example Output
+## 🧩 CSV File Upload
 
-| Rank | Title | URL | Snippet |
-|------|--------|-----|---------|
-| 1 | Ruby on Rails Guides | https://guides.rubyonrails.org | The official Rails documentation. |
-| 2 | RubyGems.org | https://rubygems.org | The Ruby community’s gem hosting service. |
+The application allows users to upload a **CSV (Comma-Separated Values) file** to import data in bulk. Each row in the CSV represents a record, and each value within a row is separated by a **comma** (`,`).
+
+- Each **line** corresponds to one record in your application.
+- Each **value** separated by a comma represents a field or attribute for that record.
+- The CSV file should **not include extra formatting** (like quotes, semicolons, or spaces) unless explicitly handled by the application.
+- **Important:** Each row should contain **no more than 100 values**. Exceeding this limit may cause errors during processing.
+
+### Example
+
+```csv
+nimble,facebook,google,bing
+
+```
+
+## Notes
+
+- Ensure the file is **saved in CSV format** (`.csv`).
+- Each value will be processed individually according to the application's logic.
+- The order of values matters if your app expects a specific column mapping.
 
 ---
 
