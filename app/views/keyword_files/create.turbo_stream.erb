@@ -5,3 +5,7 @@
 <%= turbo_stream.replace "upload_errors" do %>
   <%= render partial: "keyword_files/upload_errors", locals: { errors: [] } %>
 <% end %>
+
+<%= turbo_stream.replace "completed" do %>
+  <%= render partial: "keyword_files/completed" %>
+<% end %>

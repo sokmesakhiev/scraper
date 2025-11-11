@@ -10,6 +10,8 @@
 
     <%= form_with model: KeywordFile.new, url: keyword_files_path, multipart: true, format: :turbo_stream, data: { turbo_frame: "upload_form" }, local: false do |form| %>
       <div class="space-y-4">
+        <div id="completed">
+        </div>
         <div id="upload_errors">
           <% if defined?(errors) && errors.present? %>
             <div class="bg-red-100 text-red-700 rounded">
