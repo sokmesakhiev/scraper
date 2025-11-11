@@ -49,21 +49,6 @@
       </div>
     <% end %>
 
-    <div class="flex mt-10 items-center text-center">
-      <hr class="border-white border-1 w-full rounded-md">
-      <label class="block font-medium text-sm w-full text-white">
-        Or continue with
-      </label>
-      <hr class="border-white border-1 w-full rounded-md">
-    </div>
-
-    <div class="flex justify-center items-center btn btn-text w-full mt-10">
-      <div class="flex items-center space-x-4">
-        <img src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/google-icon.png" alt="google icon" class="w-16 h-16 object-contain">
-        <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, class: "py-2 text-white rounded" %>
-      </div>
-    </div>
-
     <p class="mt-10 text-center text-sm/6 text-gray-400">
       Not a member?
       <%= link_to "Sign up", new_user_registration_path(), class: "font-semibold text-indigo-400 hover:text-indigo-300" %>
