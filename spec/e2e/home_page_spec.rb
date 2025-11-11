@@ -35,5 +35,26 @@ describe 'Keyword files', type: :feature do
     click_button 'Upload'
 
     expect(page).to have_content('keywords.csv')
+    expect(user.keyword_files.size).to eq(3)
+    expect(user.keyword_files.last.name).to eq('keywords.csv')
+  end
+
+  it 'deltes a file' do
+    login(email:, password:)
+
+    page.accept_confirm do
+      click_link "delete-#{other_keyword_file.id}"
+    end
+
+    expect(page).not_to have_content('keywords.csv')
+    expect(user.keyword_files.size).to eq(1)
+    expect(user.keyword_files.find_by(name: 'example.csv')).to be_nil
+  end
+
+  it 'downloads a file' do
+    login(email:, password:)
+    link = find("#download-#{keyword_file.id}")
+
+    expect(link[:href]).to eq("#{Capybara.app_host}#{keyword_file_download_path(keyword_file)}")
   end
 end
