@@ -37,6 +37,7 @@ describe 'Keyword', type: :feature do
 
     expect(page).to have_content('nimble')
     expect(page).not_to have_content('apple')
+    expect(Keyword.find_by(id: apple_keyword.id)).to be_nil
   end
 
   it 'displays a html code' do
