@@ -30,6 +30,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Install Kamal
+        run: gem install kamal
+
       # Login to Docker Registry
       - name: Login Docker Registry
         run: |
