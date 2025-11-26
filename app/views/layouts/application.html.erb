@@ -46,10 +46,10 @@
             <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
               <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                 <li>
-                  <%= link_to "Files", keyword_files_path, class: style_focused("keyword_files") %>
+                  <%= link_to "Files", keyword_files_path, class: style_focused("keyword_files"), id: 'files-menu' %>
                 </li>
                 <li>
-                  <%= link_to "Keywords", keywords_path, class: style_focused("keywords") %>
+                  <%= link_to "Keywords", keywords_path, class: style_focused("keywords"), id: 'keywords-menu' %>
                 </li>
               </ul>
             </div>

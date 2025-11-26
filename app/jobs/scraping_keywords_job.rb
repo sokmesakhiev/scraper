@@ -4,6 +4,8 @@ class ScrapingKeywordsJob < ApplicationJob
 
     return if keyword_file.blank?
 
+    mark_keyword_file_as_processing(keyword_file)
+
     terms.map do |term|
       keyword = keyword_file.keywords.find_by(term:)
 
@@ -20,6 +22,8 @@ class ScrapingKeywordsJob < ApplicationJob
         html_code: response[:html_code]
       )
     end
+
+    keyword_file.refresh_status
   end
 
   private
@@ -27,6 +31,10 @@ class ScrapingKeywordsJob < ApplicationJob
   attr_reader :terms, :keyword_file_id
 
   def mark_keyword_as_processing(keyword)
+    keyword.update!(status: :processing)
+  end
+
+  def mark_keyword_file_as_processing(keyword)
     keyword.update!(status: :processing)
   end
 end
