@@ -33,6 +33,11 @@ jobs:
       - name: Install Kamal
         run: gem install kamal
 
+      # Set up SSH for Kamal deployment
+      - name: Setup Production Key
+        run: |
+          echo "${{secrets.RAILS_MASTER_KEY}}" > config/credentials/production.key
+
       # Login to Docker Registry
       - name: Login Docker Registry
         run: |
