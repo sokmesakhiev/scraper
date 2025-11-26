@@ -34,6 +34,9 @@ gem "enumerize"
 
 gem "will_paginate"
 
+# AWS S3
+gem "aws-sdk-s3", require: false
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 

@@ -10,7 +10,7 @@ development:
   host: localhost
   username: postgres
   password: postgres
-  database: bing-scraper_development
+  database: bing-data-scraper_development
   timeout: 1500
 
 # Warning: The database defined as "test" will be erased and
@@ -21,7 +21,7 @@ test:
   host: localhost
   username: postgres
   password: postgres
-  database: bing-scraper_test
+  database: bing-data-scraper_test
   timeout: 1500
 
 
@@ -30,7 +30,7 @@ test:
 production:
   adapter: postgresql
   host: <%= Rails.application.credentials.dig(:postgres_host) %>
-  database: scraper
+  database: data_scraper
   username: postgres
   password: <%= Rails.application.credentials.dig(:postgres_password) %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
