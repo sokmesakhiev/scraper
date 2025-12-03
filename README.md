@@ -4,7 +4,7 @@
 It allows you to upload batches of keywords, fetch structured search results, and store them for analysis.
 Perfect for SEO monitoring, content research, or data-driven market analysis.
 
-Visit: [https://dev.vicks-infinite.com/](https://dev.vicks-infinite.com/)
+Visit: [https://app.rails-dev.com/](https://app.rails-dev.com/)
 
 ---
 
