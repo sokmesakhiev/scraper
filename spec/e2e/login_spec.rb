@@ -15,7 +15,7 @@ describe 'User authentication', type: :feature do
       fill_in 'user[password]', with: "foobar"
       click_button 'Sign in'
 
-      expect(page).to have_content("Invalid Email or password.")
+      expect(page).to have_content("Invalid email or password.")
     end
   end
 
